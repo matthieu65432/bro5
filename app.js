@@ -21,11 +21,18 @@ form.addEventListener('submit', async (event) => {
       body: JSON.stringify({ message: message }),
     });
 
-    console.log(response); // Add this line to inspect the response
-    const jsonResponse = await response.json();
+    let jsonResponse;
+if (response.ok) {
+  jsonResponse = await response.json();
+} else {
+  const errorText = await response.text();
+  console.error(errorText);
+  jsonResponse = { message: 'An error occurred while generating a Supernova response.' };
+}
 
-    const broResponseElement = document.createElement('div');
-    broResponseElement.textContent = `BRO: ${jsonResponse.message}`;
-    chat.appendChild(broResponseElement);
+
+    const novaResponseElement = document.createElement('div');
+    novaResponseElement.textContent = `Nova: ${jsonResponse.message}`;
+    chat.appendChild(novaResponseElement);
   }
 });
