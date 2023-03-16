@@ -1,9 +1,6 @@
 const form = document.getElementById('user-input-form');
 const chat = document.getElementById('chat');
 
-// Generate the session ID
-const sessionId = uuid.v4();
-
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -21,21 +18,21 @@ form.addEventListener('submit', async (event) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      // Include sessionId in the request body
-      body: JSON.stringify({ message: message, sessionId: sessionId }),
+      body: JSON.stringify({ message: message }),
     });
 
     let jsonResponse;
-    if (response.ok) {
-      jsonResponse = await response.json();
-    } else {
-      const errorText = await response.text();
-      console.error(errorText);
-      jsonResponse = { message: 'An error occurred while generating a NOVA response.' };
-    }
+if (response.ok) {
+  jsonResponse = await response.json();
+} else {
+  const errorText = await response.text();
+  console.error(errorText);
+  jsonResponse = { message: 'An error occurred while generating a Supernova response.' };
+}
+
 
     const novaResponseElement = document.createElement('div');
-    novaResponseElement.textContent = `NOVA: ${jsonResponse.message}`;
+    novaResponseElement.textContent = `Nova: ${jsonResponse.message}`;
     chat.appendChild(novaResponseElement);
   }
 });
