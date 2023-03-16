@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -28,7 +30,7 @@ async function generateNOVAResponse(userMessage) {
           {
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer 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`, // Replace 'your_api_key' with your actual API key
+              'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
             },
           }
         );
