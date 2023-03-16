@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande ce que tu veux à ton BRO</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        #bro-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+        }
+        
+        #chat {
+            width: 80%;
+            max-width: 600px;
+            height: 400px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 1rem;
+            overflow-y: scroll;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        #user-input-form {
+            width: 80%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            background-color: #eeeeee;
+            border-radius: 10px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        #user-input {
+            flex-grow: 1;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        button {
+            padding: 0.5rem 1rem;
+            background-color: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 12px;
+        }
+        
+        button:hover {
+            background-color: #0051D5;
+        }
+        
+        a{
+            margin-top: 12px; 
+            color: grey;
+            
+        }
+
+        p{
+            margin-bottom: 24px;
+            margin-top: -12px;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <img src="assets/bro.png" alt="Bro Image" id="bro-image" />
+    <h1>Ton BRO le plus fidèle</h1>
+    <p class="p">Essaie d'en savoir plus sur lui ;)</p>
+    <div id="chat">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <form id="user-input-form">
+        <input type="text" id="user-input" placeholder="Écrit ton message...">
+        <button type="submit">Envoyer</button>
+    </form>
+    <a href="/index.html" class="a">Retour à l'accueil</a>
+    <script src="app.js"></script>
+</body>
+</html>
