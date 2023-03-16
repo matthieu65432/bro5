@@ -10,6 +10,14 @@ const port = 3001;
 app.use(express.json());
 app.use(cors());
 
+// Ajoutez cette partie après la ligne "app.use(cors());"
+app.post('/generate-nova-response', async (req, res) => {
+  const userMessage = req.body.message;
+  const novaResponse = await generateNOVAResponse(userMessage);
+  res.json({ message: novaResponse });
+});
+
+
 async function generateNOVAResponse(userMessage) {
     try {
         const response = await axios.post(
@@ -43,8 +51,6 @@ async function generateNOVAResponse(userMessage) {
       }
     }
 
-
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
-    
