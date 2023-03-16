@@ -13,7 +13,7 @@ form.addEventListener('submit', async (event) => {
     messageElement.textContent = `You: ${message}`;
     chat.appendChild(messageElement);
 
-    const response = await fetch('http://localhost:3002/generate-bro-response', {
+    const response = await fetch('https://rob5.onrender.com:3002/generate-bro-response', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
