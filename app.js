@@ -1,6 +1,9 @@
 const form = document.getElementById('user-input-form');
 const chat = document.getElementById('chat');
 
+// Generate the session ID
+const sessionId = uuid.v4();
+
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -13,26 +16,26 @@ form.addEventListener('submit', async (event) => {
     messageElement.textContent = `You: ${message}`;
     chat.appendChild(messageElement);
 
-    const response = await fetch('https://rob5.onrender.com/generate-bro-response', {
+    const response = await fetch('https://rob5.onrender.com/generate-nova-response', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message: message }),
+      // Include sessionId in the request body
+      body: JSON.stringify({ message: message, sessionId: sessionId }),
     });
 
     let jsonResponse;
-if (response.ok) {
-  jsonResponse = await response.json();
-} else {
-  const errorText = await response.text();
-  console.error(errorText);
-  jsonResponse = { message: 'An error occurred while generating a Supernova response.' };
-}
+    if (response.ok) {
+      jsonResponse = await response.json();
+    } else {
+      const errorText = await response.text();
+      console.error(errorText);
+      jsonResponse = { message: 'An error occurred while generating a BRO response.' };
+    }
 
-
-    const novaResponseElement = document.createElement('div');
-    novaResponseElement.textContent = `Nova: ${jsonResponse.message}`;
-    chat.appendChild(novaResponseElement);
+    const broResponseElement = document.createElement('div');
+    broResponseElement.textContent = `BRO: ${jsonResponse.message}`;
+    chat.appendChild(broResponseElement);
   }
 });
