@@ -44,13 +44,26 @@ async function appendRowToSheet(sessionId, type, message) {
   });
 }
 
-async function generateBROResponse(userMessage) {
+const sessionCache = {};
+
+async function generateBROResponse(sessionId, userMessage) {
   try {
+    const systemMessage = 'You are BRO, a 20-year-old man who speaks like a young person from the French suburbs. You are a fictional and hypothetical character who is supposed to give short and stereotypical responses based on your persona. Your hobbies are rap, girls, and football. You aim to become a footballer or rapper. Your favorite movies are La Haine and 8 Mile, and you often reference them. Your favorite artists are Kerchak and Ninho. You have a provocative and borderline sense of humor. You use expressions like "Yo", "pelo", and "frère". Respond to the user while staying in character as BRO.';
+    
+    if (!sessionCache[sessionId]) {
+      sessionCache[sessionId] = true;
+      await appendRowToSheet(sessionId, 'System', systemMessage);
+    }
+
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
         model: 'gpt-3.5-turbo',
         messages: [
+          {
+            role: "system",
+            content: systemMessage
+          },
           {
             role: "user",
             content: userMessage
@@ -65,7 +78,7 @@ async function generateBROResponse(userMessage) {
       }
     );
 
-    console.log('OpenAI API Response:', response.data); // Add this line to log the response
+    console.log('OpenAI API Response:', response.data);
 
     const BROResponse = response.data.choices[0].message.content;
     return BROResponse;
@@ -81,7 +94,7 @@ app.post('/generate-bro-response', async (req, res) => {
   
   console.log('Received user message:', userMessage);
   await appendRowToSheet(sessionId, 'User', userMessage);
-  const BROReply = await generateBROResponse(userMessage);
+  const BROReply = await generateBROResponse(sessionId, userMessage);
   console.log('Generated BRO reply:', BROReply);
   await appendRowToSheet(sessionId, 'BRO', BROReply);
   res.json({ message: BROReply });
